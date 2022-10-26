@@ -7,6 +7,9 @@
 - Fix `autojoin` checkbox state in MUC bookmark form
 - Remove call to `api.confirm` in `@converse/headless`
 - Generate TypeScript declaration files into `dist/types`
+- Embed the Spotify player for links to Spotify tracks
+
+- New config option [embed-3rd-party-media-players](https://conversejs.org/docs/html/configuration.html#embed-3rd-party-media-players)
 
 ## 10.1.2 (2023-02-17)
 
@@ -59,7 +62,6 @@
 - #3007: Fix links becoming text when a message is edited
 - #3018: Fix MUC icons not functioning.
 - #3028: Fix encrypted media from Conversations/Quicksy not properly decrypting
-
 
 ## 9.1.1 (2022-05-05)
 

@@ -1,6 +1,8 @@
+import URI from 'urijs';
 import tplAudio from 'templates/audio.js';
 import tplGif from 'templates/gif.js';
 import tplImage from 'templates/image.js';
+import tplSpotify from 'templates/spotify.js';
 import tplVideo from 'templates/video.js';
 import { api } from '@converse/headless/core';
 import { containsDirectives, getDirectiveAndLength, getDirectiveTemplate, isQuoteDirective } from './styling.js';
@@ -171,6 +173,33 @@ export class RichText extends String {
     }
 
     /**
+     * Look for spotify tracks and return the Spotify player
+     * @param { string } text
+     * @param { number } offset - The index of the passed-in text relative to
+     *  the start of the message body text.
+     */
+    embed3rdPartyMediaPlayers (text, offset) {
+        if (!api.settings.get('embed_3rd_party_media_players')) return;
+
+        const urls = [];
+        URI.withinString(
+            text,
+            url => urls.push(url),
+            { start: /^(?:https:\/\/open\.spotify\.com\/.*track\/[0-9A-Za-z]+)/gi }
+        );
+
+        for (const url of urls) {
+            const uri = new URI(url);
+            const index = text.indexOf(url);
+            this.addTemplateResult(
+                index + offset,
+                index + offset + url.length,
+                tplSpotify(uri.path().split('/').pop(), url, this.hide_media_urls),
+            );
+        }
+    }
+
+    /**
      * Look for emojis (shortnames or unicode) and add templates for rendering them.
      * @param { String } text
      * @param { number } offset - The index of the passed in text relative to
@@ -303,6 +332,7 @@ export class RichText extends String {
 
         this.render_styling && this.addStyling();
         this.addAnnotations(this.addMentions);
+        this.addAnnotations(this.embed3rdPartyMediaPlayers);
         this.addAnnotations(this.addHyperlinks);
         this.addAnnotations(this.addMapURLs);
 
