@@ -1,5 +1,6 @@
+import { i18n } from 'i18n';
+import { _converse, api } from '@converse/headless';
 import tplRoot from "./templates/root.js";
-import { api } from '@converse/headless';
 import { CustomElement } from 'shared/components/element.js';
 import { getTheme } from './utils.js';
 
@@ -15,7 +16,7 @@ import './styles/root.scss';
  */
 export default class ConverseRoot extends CustomElement {
 
-    render () { // eslint-disable-line class-methods-use-this
+    render () {
         return tplRoot();
     }
 
@@ -36,6 +37,14 @@ export default class ConverseRoot extends CustomElement {
         this.classList.add('conversejs');
         this.classList.add(`converse-${api.settings.get('view_mode')}`);
         this.classList.add(`theme-${getTheme()}`);
+
+        const rtl_langs = "ar, fa, he, ur";
+        if (rtl_langs.includes(i18n.getLocale())) {
+            this.setAttribute('dir', 'rtl');
+        } else {
+            this.setAttribute('dir', 'ltr');
+        }
+
         this.requestUpdate();
     }
 }

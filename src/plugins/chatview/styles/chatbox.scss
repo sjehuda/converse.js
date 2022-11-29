@@ -10,7 +10,7 @@
 
 .conversejs {
     .chatbox {
-        text-align: left;
+        text-align: start;
 
         @media screen and (max-height: $mobile-landscape-height) {
             margin: 0;
