@@ -70,6 +70,14 @@ class ConversePrivateGlobal extends EventEmitter(Object) {
         }
 
         this.chatboxes = null;
+
+        /**
+         * Namespace for storing code that might be useful to 3rd party
+         * plugins. We want to make it possible for 3rd party plugins to have
+         * access to code (e.g. classes) from converse.js without having to add
+         * converse.js as a dependency.
+         */
+        this.exports = /** @type { Record<string, Object> } */{};
     }
 
     /**
