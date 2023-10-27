@@ -5,6 +5,7 @@ import { _converse, api } from "@converse/headless";
 import { html } from "lit";
 import { isUniView } from '@converse/headless/utils/session.js';
 import { addBookmarkViaEvent } from 'plugins/bookmark-views/utils.js';
+import { CHATROOMS_TYPE, CLOSED } from '@converse/headless/shared/constants.js';
 
 
 function isCurrentlyOpen (room) {
@@ -68,7 +69,7 @@ function tplRoomItem (el, room) {
 }
 
 export default (el) => {
-    const { chatboxes, CHATROOMS_TYPE, CLOSED } = _converse;
+    const { chatboxes } = _converse;
     const rooms = chatboxes.filter(m => m.get('type') === CHATROOMS_TYPE);
     rooms.sort((a, b) => (a.getDisplayName().toLowerCase() <= b.getDisplayName().toLowerCase() ? -1 : 1));
 
