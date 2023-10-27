@@ -1,4 +1,4 @@
-import { CustomElement } from 'shared/components/element.js';
+import { CustomElement } from '../components/element.js';
 import { _converse, api } from '@converse/headless';
 import { onScrolledDown } from './utils.js';
 import { CHATROOMS_TYPE } from '@converse/headless/shared/constants.js';
