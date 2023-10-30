@@ -119,7 +119,7 @@ function isEqualNode (actual, expected) {
 /**
  * Given an HTMLElement representing a form field, return it's name and value.
  * @param { HTMLElement } field
- * @returns { { string, string } | null }
+ * @returns { { name: string, value: string } | null }
  */
 export function getNameAndValue(field) {
     const name = field.getAttribute('name');
@@ -196,13 +196,12 @@ export function getOOBURLMarkup (url) {
 /**
  * Return the height of the passed in DOM element,
  * based on the heights of its children.
- * @method u#calculateElementHeight
  * @param { HTMLElement } el
  * @returns {number}
  */
-u.calculateElementHeight = function (el) {
+function calculateElementHeight (el) {
     return Array.from(el.children).reduce((result, child) => result + child.offsetHeight, 0);
-};
+}
 
 u.getNextElement = function (el, selector = '*') {
     let next_el = el.nextElementSibling;
@@ -237,12 +236,12 @@ u.getLastChildElement = function (el, selector = '*') {
 };
 
 u.toggleClass = function (className, el) {
-    u.hasClass(className, el) ? removeClass(className, el) : addClass(className, el);
+    hasClass(className, el) ? removeClass(className, el) : addClass(className, el);
 };
 
 /**
  * Has an element a class?
- * @method u#hasClass
+ * @method hasClass
  * @param { string } className
  * @param { Element } el
  */
@@ -336,19 +335,23 @@ u.unescapeHTML = function (string) {
     return div.innerText;
 };
 
-u.escapeHTML = function (string) {
+export function escapeHTML (string) {
     return string
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
-};
+}
 
 function isProtocolApproved (protocol, safeProtocolsList = APPROVED_URL_PROTOCOLS) {
     return !!safeProtocolsList.includes(protocol);
 }
 
-// Will return false if URL is malformed or contains disallowed characters
+/**
+ * Will return false if URL is malformed or contains disallowed characters
+ * @param {string} urlString
+ * @returns {boolean}
+ */
 function isUrlValid (urlString) {
     try {
         const url = new URL(urlString);
@@ -366,18 +369,6 @@ export function getHyperlinkTemplate (url) {
     }
     return url;
 }
-
-u.slideInAllElements = function (elements, duration = 300) {
-    return Promise.all(Array.from(elements).map(e => u.slideIn(e, duration)));
-};
-
-u.slideToggleElement = function (el, duration) {
-    if (u.hasClass('collapsed', el) || u.hasClass('hidden', el)) {
-        return u.slideOut(el, duration);
-    } else {
-        return u.slideIn(el, duration);
-    }
-};
 
 /**
  * Shows/expands an element by sliding it out of itself
@@ -398,7 +389,7 @@ export function slideOut (el, duration = 200) {
             el.removeAttribute('data-slider-marker');
             cancelAnimationFrame(marker);
         }
-        const end_height = u.calculateElementHeight(el);
+        const end_height = calculateElementHeight(el);
         if (window.converse_disable_effects) {
             // Effects are disabled (for tests)
             el.style.height = end_height + 'px';
@@ -406,7 +397,7 @@ export function slideOut (el, duration = 200) {
             resolve();
             return;
         }
-        if (!u.hasClass('collapsed', el) && !u.hasClass('hidden', el)) {
+        if (!hasClass('collapsed', el) && !hasClass('hidden', el)) {
             resolve();
             return;
         }
@@ -424,7 +415,7 @@ export function slideOut (el, duration = 200) {
                 // browser bug where browsers don't know the correct
                 // offsetHeight beforehand.
                 el.removeAttribute('data-slider-marker');
-                el.style.height = u.calculateElementHeight(el) + 'px';
+                el.style.height = calculateElementHeight(el) + 'px';
                 el.style.overflow = '';
                 el.style.height = '';
                 resolve();
@@ -450,7 +441,7 @@ export function slideIn (el, duration = 200) {
             const err = 'An element needs to be passed in to slideIn';
             log.warn(err);
             return reject(new Error(err));
-        } else if (u.hasClass('collapsed', el)) {
+        } else if (hasClass('collapsed', el)) {
             return resolve(el);
         } else if (window.converse_disable_effects) {
             // Effects are disabled (for tests)
@@ -461,7 +452,7 @@ export function slideIn (el, duration = 200) {
         const marker = el.getAttribute('data-slider-marker');
         if (marker) {
             el.removeAttribute('data-slider-marker');
-            cancelAnimationFrame(marker);
+            cancelAnimationFrame(Number(marker));
         }
         const original_height = el.offsetHeight,
             steps = duration / 17; // We assume 17ms per animation which is ~60FPS
@@ -485,27 +476,41 @@ export function slideIn (el, duration = 200) {
     });
 }
 
+/**
+ * @param {Element} el
+ * @param {Function} callback
+ */
 function afterAnimationEnds (el, callback) {
     el.classList.remove('visible');
     callback?.();
 }
 
-u.isInDOM = function (el) {
+/**
+ * @param {Element} el
+ */
+function isInDOM (el) {
     return document.querySelector('body').contains(el);
-};
+}
 
-u.isVisible = function (el) {
+/**
+ * @param {HTMLElement} el
+ */
+function isVisible (el) {
     if (el === null) {
         return false;
     }
-    if (u.hasClass('hidden', el)) {
+    if (hasClass('hidden', el)) {
         return false;
     }
     // XXX: Taken from jQuery's "visible" implementation
     return el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0;
-};
+}
 
-u.fadeIn = function (el, callback) {
+/**
+ * @param {Element} el
+ * @param {Function} callback
+ */
+export function fadeIn (el, callback) {
     if (!el) {
         log.warn('An element needs to be passed in to fadeIn');
     }
@@ -513,7 +518,7 @@ u.fadeIn = function (el, callback) {
         el.classList.remove('hidden');
         return afterAnimationEnds(el, callback);
     }
-    if (u.hasClass('hidden', el)) {
+    if (hasClass('hidden', el)) {
         el.classList.add('visible');
         el.classList.remove('hidden');
         el.addEventListener('webkitAnimationEnd', () => afterAnimationEnds(el, callback));
@@ -522,7 +527,7 @@ u.fadeIn = function (el, callback) {
     } else {
         afterAnimationEnds(el, callback);
     }
-};
+}
 
 /**
  * Takes an XML field in XMPP XForm (XEP-004: Data Forms) format returns a
@@ -618,14 +623,19 @@ export function xForm2TemplateResult (field, stanza, options={}) {
             'value': field.querySelector('value')?.textContent
         });
     }
-};
+}
 
 Object.assign(u, {
-    hasClass,
     addClass,
     ancestor,
+    calculateElementHeight,
+    escapeHTML,
+    fadeIn,
     getOOBURLMarkup,
+    hasClass,
     isEqualNode,
+    isInDOM,
+    isVisible,
     removeClass,
     removeElement,
     slideIn,

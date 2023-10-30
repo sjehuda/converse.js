@@ -1,9 +1,8 @@
 import ChatRoomOccupant from './occupant.js';
 import _converse from '../../shared/_converse.js';
 import api, { converse } from '../../shared/api/index.js';
-import { Collection } from '@converse/skeletor/src/collection.js';
+import { Collection, Model } from '@converse/skeletor';
 import { MUC_ROLE_WEIGHTS } from './constants.js';
-import { Model } from '@converse/skeletor/src/model.js';
 import { Strophe } from 'strophe.js';
 import { getAffiliationList } from './affiliations/utils.js';
 import { getAutoFetchedAffiliationLists } from './utils.js';
@@ -13,14 +12,17 @@ const { u } = converse.env;
 
 
 /**
- * A list of {@link _converse.ChatRoomOccupant} instances, representing participants in a MUC.
+ * A list of {@link ChatRoomOccupant} instances, representing participants in a MUC.
  * @class
- * @namespace _converse.ChatRoomOccupants
  * @memberOf _converse
  */
 class ChatRoomOccupants extends Collection {
     model = ChatRoomOccupant;
 
+    /**
+     * @param {ChatRoomOccupant} occupant1
+     * @param {ChatRoomOccupant} occupant2
+     */
     comparator (occupant1, occupant2) { // eslint-disable-line class-methods-use-this
         const role1 = occupant1.get('role') || 'none';
         const role2 = occupant2.get('role') || 'none';
@@ -103,7 +105,7 @@ class ChatRoomOccupants extends Collection {
      *
      * Lookup by occupant_id is done first, then jid, and then nick.
      *
-     * @method _converse.ChatRoomOccupants#findOccupant
+     * @method ChatRoomOccupants#findOccupant
      * @param { OccupantData } data
      */
     findOccupant (data) {
@@ -117,10 +119,10 @@ class ChatRoomOccupants extends Collection {
     }
 
     /**
-     * Get the {@link _converse.ChatRoomOccupant} instance which
+     * Get the {@link ChatRoomOccupant} instance which
      * represents the current user.
-     * @method _converse.ChatRoomOccupants#getOwnOccupant
-     * @returns { _converse.ChatRoomOccupant }
+     * @method ChatRoomOccupants#getOwnOccupant
+     * @returns { ChatRoomOccupant }
      */
     getOwnOccupant () {
         return this.findOccupant({

@@ -2,17 +2,17 @@ import DOMPurify from 'dompurify';
 import { Strophe } from 'strophe.js';
 
 /**
- * @param { any } el
- * @returns { boolean }
+ * @param {any} el
+ * @returns {el is Element}
  */
 export function isElement (el) {
     return el instanceof Element || el instanceof HTMLDocument;
 }
 
 /**
- * @param { Element | typeof Strophe.Builder } stanza
- * @param { string } name
- * @returns { boolean }
+ * @param {Element | typeof Strophe.Builder} stanza
+ * @param {string} name
+ * @returns {boolean}
  */
 export function isTagEqual (stanza, name) {
     if (stanza instanceof Strophe.Builder) {
@@ -59,9 +59,16 @@ export function stringToElement (s) {
  * @method u#queryChildren
  * @param {HTMLElement} el - the DOM element
  * @param {string} selector - the selector they should be matched against
+ * @returns {HTMLElement[]}
  */
 export function queryChildren (el, selector) {
-    return Array.from(el.childNodes).filter(el => (el instanceof Element) && el.matches(selector));
+    const children = /*@type {HTMLElement[]} */([]);
+    for (const c of Array.from(el.childNodes)) {
+        if (c instanceof HTMLElement && c.matches(selector)) {
+            children.push(el);
+        }
+    }
+    return children;
 }
 
 /**

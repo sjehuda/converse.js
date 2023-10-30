@@ -1,9 +1,9 @@
 import MUCMessage from './message';
-import { Collection } from '@converse/skeletor/src/collection';
+import { Collection } from '@converse/skeletor';
 
 /**
  * Collection which stores MUC messages
- * @namespace _converse.ChatRoomMessages
+ * @namespace MUCMessages
  * @memberOf _converse
  */
 class MUCMessages extends Collection {
@@ -12,8 +12,12 @@ class MUCMessages extends Collection {
         return 'time';
     }
 
-    constructor () {
-        super();
+    /**
+     * @param {MUCMessage[]} [models]
+     * @param {Object} [options]
+     */
+    constructor (models, options) {
+        super(models, options);
         this.model = MUCMessage;
     }
 }

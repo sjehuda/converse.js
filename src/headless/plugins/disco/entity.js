@@ -2,8 +2,7 @@ import _converse from '../../shared/_converse.js';
 import api, { converse } from '../../shared/api/index.js';
 import log from '../../log.js';
 import sizzle from 'sizzle';
-import { Collection } from '@converse/skeletor/src/collection';
-import { Model } from '@converse/skeletor/src/model.js';
+import { Collection, Model } from '@converse/skeletor';
 import { getOpenPromise } from '@converse/openpromise';
 import { createStore } from '../../utils/storage.js';
 

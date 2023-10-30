@@ -1,7 +1,7 @@
-import { Model } from '@converse/skeletor/src/model.js';
+import { Model } from '@converse/skeletor';
 
 class Resource extends Model {
-    get idAttribute () { // eslint-disable-line class-methods-use-this
+    get idAttribute () {
         return 'name';
     }
 }

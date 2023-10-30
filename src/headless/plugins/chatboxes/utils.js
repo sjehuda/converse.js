@@ -1,3 +1,9 @@
+/**
+ * @typedef {import('../muc/muc.js').default} MUC
+ * @typedef {import('../headlines/feed.js').default} HeadlinesFeed
+ * @typedef {import('../chat/model.js').default} ChatBox
+ */
+
 import _converse from '../../shared/_converse.js';
 import { converse } from '../../shared/api/index.js';
 import log from "../../log";
@@ -5,6 +11,11 @@ import log from "../../log";
 const { Strophe } = converse.env;
 
 
+/**
+ * @param {string} jid
+ * @param {Object} attrs
+ * @param {HeadlinesFeed|ChatBox|MUC} Model
+ */
 export async function createChatBox (jid, attrs, Model) {
     jid = Strophe.getBareJidFromJid(jid.toLowerCase());
     Object.assign(attrs, {'jid': jid, 'id': jid});

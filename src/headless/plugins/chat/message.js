@@ -10,7 +10,7 @@ const { Strophe, sizzle, u } = converse.env;
 /**
  * Represents a (non-MUC) message.
  * These can be either `chat`, `normal` or `headline` messages.
- * @namespace _converse.Message
+ * @namespace Message
  * @memberOf _converse
  * @example const msg = new Message({'message': 'hello world!'});
  */
@@ -41,9 +41,9 @@ class Message extends ModelWithContact {
         await this.setContact();
         this.setTimerForEphemeralMessage();
         /**
-         * Triggered once a {@link _converse.Message} has been created and initialized.
+         * Triggered once a {@link Message} has been created and initialized.
          * @event _converse#messageInitialized
-         * @type { _converse.Message}
+         * @type {Message}
          * @example _converse.api.listen.on('messageInitialized', model => { ... });
          */
         await api.trigger('messageInitialized', this, { 'Synchronous': true });
@@ -59,8 +59,7 @@ class Message extends ModelWithContact {
 
     /**
      * Sets an auto-destruct timer for this message, if it's is_ephemeral.
-     * @private
-     * @method _converse.Message#setTimerForEphemeralMessage
+     * @method Message#setTimerForEphemeralMessage
      */
     setTimerForEphemeralMessage () {
         if (this.ephemeral_timer) {
@@ -175,8 +174,7 @@ class Message extends ModelWithContact {
     /**
      * Send out an IQ stanza to request a file upload slot.
      * https://xmpp.org/extensions/xep-0363.html#request
-     * @private
-     * @method _converse.Message#sendSlotRequestStanza
+     * @method Message#sendSlotRequestStanza
      */
     sendSlotRequestStanza () {
         if (!this.file) {

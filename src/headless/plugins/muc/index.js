@@ -180,12 +180,14 @@ converse.plugins.add('converse-muc', {
         routeToRoom();
         addEventListener('hashchange', routeToRoom);
 
-        _converse.ChatRoom = MUC;
-        _converse.ChatRoomMessage = MUCMessage;
-        _converse.ChatRoomOccupants = ChatRoomOccupants;
-        _converse.ChatRoomOccupant = ChatRoomOccupant;
+        Object.assign(_converse.exports, {
+            MUC,
+            MUCMessage,
+            ChatRoomOccupants,
+            ChatRoomOccupant,
+        });
 
-        api.chatboxes.registry.add(CHATROOMS_TYPE, MUC);
+        /** @type {module:shared-api.APIEndpoint} */(api.chatboxes.registry).add(CHATROOMS_TYPE, MUC);
 
         Object.assign(_converse, {
             getDefaultMUCNickname,

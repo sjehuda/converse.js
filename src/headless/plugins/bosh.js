@@ -8,7 +8,7 @@ import _converse from '../shared/_converse.js';
 import api, { converse } from '../shared/api/index.js';
 import log from "../log.js";
 import { BOSH_WAIT } from '../shared/constants.js';
-import { Model } from '@converse/skeletor/src/model.js';
+import { Model } from '@converse/skeletor';
 import { setUserJID, } from '../utils/init.js';
 import { isTestEnv } from '../utils/session.js';
 import { createStore } from '../utils/storage.js';

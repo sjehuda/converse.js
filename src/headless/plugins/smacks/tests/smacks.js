@@ -265,7 +265,7 @@ describe("XEP-0198 Stream Management", function () {
         const nick = 'romeo';
         const func = _converse.chatboxes.onChatBoxesFetched;
         spyOn(_converse.chatboxes, 'onChatBoxesFetched').and.callFake(collection => {
-            const muc = new _converse.ChatRoom({'jid': muc_jid, 'id': muc_jid, nick}, {'collection': _converse.chatboxes});
+            const muc = new _converse.exports.MUC({'jid': muc_jid, 'id': muc_jid, nick}, {'collection': _converse.chatboxes});
             _converse.chatboxes.add(muc);
             func.call(_converse.chatboxes, collection);
         });

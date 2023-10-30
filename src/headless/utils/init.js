@@ -7,7 +7,7 @@ import log from '../log.js';
 import syncDriver from 'localforage-webextensionstorage-driver/sync';
 import { ANONYMOUS, CORE_PLUGINS, EXTERNAL, LOGIN } from '../shared/constants.js';
 import { Connection } from '../shared/connection/index.js';
-import { Model } from '@converse/skeletor/src/model.js';
+import { Model } from '@converse/skeletor';
 import { Strophe } from 'strophe.js';
 import { createStore, initStorage } from './storage.js';
 import { getConnectionServiceURL } from '../shared/connection/utils';

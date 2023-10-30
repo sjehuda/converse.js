@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@converse/openpromise": "^0.0.1",
-    "@converse/skeletor": "conversejs/skeletor#dc5acf92369fffef548252d5ba2e9ba754fa262c",
+    "@converse/skeletor": "conversejs/skeletor#88b16086d988fab5541f69dbed5be4456169e2f7 ",
     "dayjs": "^1.11.8",
     "dompurify": "^2.3.1",
     "filesize": "^10.0.7",

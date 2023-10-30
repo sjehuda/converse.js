@@ -3,7 +3,7 @@ import Bookmark from './model.js';
 import _converse from '../../shared/_converse.js';
 import api, { converse } from '../../shared/api/index.js';
 import log from "../../log.js";
-import { Collection } from "@converse/skeletor/src/collection.js";
+import { Collection } from "@converse/skeletor";
 import { getOpenPromise } from '@converse/openpromise';
 import { initStorage } from '../../utils/storage.js';
 
@@ -12,8 +12,12 @@ const { Strophe, $iq, sizzle } = converse.env;
 
 class Bookmarks extends Collection {
 
-    constructor () {
-        super();
+    /**
+     * @param {Bookmark[]} [models]
+     * @param {Object} [options]
+     */
+    constructor (models, options) {
+        super(models, options);
         this.model = Bookmark;
     }
 
@@ -41,7 +45,7 @@ class Bookmarks extends Collection {
          * Triggered once the _converse.Bookmarks collection
          * has been created and cached bookmarks have been fetched.
          * @event _converse#bookmarksInitialized
-         * @type { _converse.Bookmarks }
+         * @type {Bookmarks}
          * @example _converse.api.listen.on('bookmarksInitialized', (bookmarks) => { ... });
          */
         api.trigger('bookmarksInitialized', this);

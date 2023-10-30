@@ -1,10 +1,9 @@
 import Message from '../chat/message.js';
-import _converse from '../../shared/_converse.js';
 import api from '../../shared/api/index.js';
 import { Strophe } from 'strophe.js';
 
 /**
- * @namespace _converse.ChatRoomMessage
+ * @namespace MUCMesasge
  * @memberOf _converse
  */
 class MUCMessage extends Message {
@@ -24,10 +23,10 @@ class MUCMessage extends Message {
         this.setTimerForEphemeralMessage();
         this.setOccupant();
         /**
-         * Triggered once a { @link _converse.ChatRoomMessage } has been created and initialized.
+         * Triggered once a {@link MUCMesasge} has been created and initialized.
          * @event _converse#chatRoomMessageInitialized
-         * @type { _converse.ChatRoomMessages}
-         * @example _converse.api.listen.on('chatRoomMessageInitialized', model => { ... });
+         * @type {MUCMessage}
+         * @example api.listen.on('chatRoomMessageInitialized', model => { ... });
          */
         api.trigger('chatRoomMessageInitialized', this);
     }
@@ -40,7 +39,7 @@ class MUCMessage extends Message {
      * Determines whether this messsage may be moderated,
      * based on configuration settings and server support.
      * @async
-     * @method _converse.ChatRoomMessages#mayBeModerated
+     * @method MUCMesasges#mayBeModerated
      * @returns { Boolean }
      */
     mayBeModerated () {
@@ -57,7 +56,7 @@ class MUCMessage extends Message {
     }
 
     checkValidity () {
-        const result = _converse.Message.prototype.checkValidity.call(this);
+        const result = Message.prototype.checkValidity.call(this);
         !result && this.chatbox.debouncedRejoin();
         return result;
     }

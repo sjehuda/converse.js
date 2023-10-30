@@ -50,6 +50,8 @@ converse.plugins.add('converse-dragresize', {
             'allow_dragresize': true
         });
 
+        const { exports } = _converse;
+
         Object.assign(_converse.ChatBoxView.prototype, DragResizableMixin);
         Object.assign(_converse.ChatRoomView.prototype, DragResizableMixin);
         if (_converse.ControlBoxView) {
@@ -68,7 +70,7 @@ converse.plugins.add('converse-dragresize', {
         }
 
         /**
-         * This function registers mousedown and mouseup events hadlers to 
+         * This function registers mousedown and mouseup events hadlers to
          * all iframes in the DOM when converse UI resizing events are called
          * to prevent mouse drag stutter effect which is bad user experience.
          * @function dragresizeOverIframeHandler
@@ -80,13 +82,13 @@ converse.plugins.add('converse-dragresize', {
             e.addEventListener('mousedown', () => {
                 iframe.style.pointerEvents  = 'none';
             }, { once: true });
-            
+
             e.addEventListener('mouseup', () => {
                 iframe.style.pointerEvents  = 'initial';
             }, { once: true });
           }
         }
-        
+
         api.listen.on('registeredGlobalEventHandlers', registerGlobalEventHandlers);
         api.listen.on('unregisteredGlobalEventHandlers', unregisterGlobalEventHandlers);
         api.listen.on('beforeShowingChatView', view => view.initDragResize().setDimensions());

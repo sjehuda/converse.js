@@ -1,6 +1,10 @@
+/**
+ * @typedef {import('../../plugins/muc/muc.js').default} MUC
+ * @typedef {import('../../plugins/chat/model.js').default} ChatBox
+ */
 import _converse from '../../shared/_converse.js';
 import api from '../../shared/api/index.js';
-import { Collection } from "@converse/skeletor/src/collection";
+import { Collection } from "@converse/skeletor";
 import { initStorage } from '../../utils/storage.js';
 
 class ChatBoxes extends Collection {
@@ -14,7 +18,7 @@ class ChatBoxes extends Collection {
          * Triggered once all chat boxes have been recreated from the browser cache
          * @event _converse#chatBoxesFetched
          * @type { object }
-         * @property { _converse.ChatBox | _converse.ChatRoom } chatbox
+         * @property { ChatBox | MUC } chatbox
          * @property { Element } stanza
          * @example _converse.api.listen.on('chatBoxesFetched', obj => { ... });
          * @example _converse.api.waitUntil('chatBoxesFetched').then(() => { ... });
@@ -22,6 +26,9 @@ class ChatBoxes extends Collection {
         api.trigger('chatBoxesFetched');
     }
 
+    /**
+     * @param {Boolean} reconnecting
+     */
     onConnected (reconnecting) {
         if (reconnecting) { return; }
         initStorage(this, `converse.chatboxes-${_converse.bare_jid}`);

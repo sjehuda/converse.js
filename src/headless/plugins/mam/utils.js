@@ -1,3 +1,7 @@
+/**
+ * @typedef {import('../../plugins/muc/muc.js').default} MUC
+ * @typedef {import('../../plugins/chat/model.js').default} ChatBox
+ */
 import MAMPlaceholderMessage from './placeholder.js';
 import _converse from '../../shared/_converse.js';
 import api, { converse } from '../../shared/api/index.js';
@@ -163,7 +167,7 @@ export async function fetchArchivedMessages (model, options = {}, should_page = 
 
 /**
  * Create a placeholder message which is used to indicate gaps in the history.
- * @param { _converse.ChatBox | _converse.ChatRoom } model
+ * @param { ChatBox | MUC } model
  * @param { MAMOptions } options
  * @param { object } result - The RSM result object
  */
@@ -198,7 +202,7 @@ async function createPlaceholder (model, options, result) {
 /**
  * Fetches messages that might have been archived *after*
  * the last archived message in our local cache.
- * @param { _converse.ChatBox | _converse.ChatRoom }
+ * @param { ChatBox | MUC }
  */
 export function fetchNewestMessages (model) {
     if (model.disable_mam) {

@@ -43,7 +43,7 @@ export default {
      * When using the 'error' or 'warn' loglevels, a full stacktrace will be
      * logged as well.
      * @method log#log
-     * @param { string | Error } message - The message to be logged
+     * @param { string | Error | HTMLElement } message - The message to be logged
      * @param { string } level - The loglevel which allows for filtering of log messages
      */
     log (message, level, style='') {

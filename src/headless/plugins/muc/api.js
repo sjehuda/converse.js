@@ -1,9 +1,10 @@
+import MUC from './muc.js';
 import _converse from '../../shared/_converse.js';
 import api from '../../shared/api/index.js';
 import log from '../../log';
+import { CHATROOMS_TYPE } from '../../shared/constants.js';
 import { Strophe } from 'strophe.js';
 import { getJIDFromURI } from '../../utils/jid.js';
-import { CHATROOMS_TYPE } from '../../shared/constants.js';
 
 
 export default {
@@ -46,9 +47,9 @@ export default {
          * Similar to {@link api.chats.open}, but for groupchats.
          *
          * @method api.rooms.open
-         * @param { string } jid The room JID or JIDs (if not specified, all
+         * @param { string[] } jids The room JID or JIDs (if not specified, all
          *     currently open rooms will be returned).
-         * @param { string } attrs A map  containing any extra room attributes.
+         * @param { object } attrs A map  containing any extra room attributes.
          * @param { string } [attrs.nick] The current user's nickname for the MUC
          * @param { boolean } [attrs.auto_configure] A boolean, indicating
          *     whether the room should be configured automatically or not.
@@ -127,7 +128,7 @@ export default {
          * @param { String } [attrs.password ] Specify a password if needed to enter a new room
          * @param { Boolean } create A boolean indicating whether the room should be created
          *     if not found (default: `false`)
-         * @returns { Promise<_converse.ChatRoom> }
+         * @returns { Promise<MUC> }
          * @example
          * api.waitUntil('roomsAutoJoined').then(() => {
          *     const create_if_not_found = true;
@@ -145,7 +146,7 @@ export default {
                 jid = getJIDFromURI(jid);
                 let model = await api.chatboxes.get(jid);
                 if (!model && create) {
-                    model = await api.chatboxes.create(jid, attrs, _converse.ChatRoom);
+                    model = await api.chatboxes.create(jid, attrs, MUC);
                 } else {
                     model = model && model.get('type') === CHATROOMS_TYPE ? model : null;
                     if (model && Object.keys(attrs).length) {

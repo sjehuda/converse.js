@@ -1,3 +1,11 @@
+/**
+ * @module:plugin-muc-parsers
+ * @typedef {module:plugin-muc-parsers.MUCMessageAttributes} MUCMessageAttributes
+ * @typedef {import('../../plugins/muc/muc.js').default} MUC
+ * @typedef {import('../../plugins/muc/message.js').default} MUCMessage
+ * @typedef {import('../../plugins/chat/model.js').default} ChatBox
+ * @typedef {import('../../plugins/chat/message.js').default} Message
+ */
 import dayjs from 'dayjs';
 import _converse from '../../shared/_converse.js';
 import api, { converse } from '../../shared/api/index.js';
@@ -72,10 +80,8 @@ function getJIDFromMUCUserData (stanza) {
 
 /**
  * @private
- * @param { Element } stanza - The message stanza
- * @param { Element } original_stanza - The original stanza, that contains the
- *  message stanza, if it was contained, otherwise it's the message stanza itself.
- * @returns { Object }
+ * @param {Element} stanza - The message stanza
+ * @returns {Object}
  */
 function getModerationAttributes (stanza) {
     const fastening = sizzle(`apply-to[xmlns="${Strophe.NS.FASTEN}"]`, stanza).pop();
@@ -122,7 +128,7 @@ function getOccupantID (stanza, chatbox) {
  * Determines whether the sender of this MUC message is the current user or
  * someone else.
  * @param { MUCMessageAttributes } attrs
- * @param { _converse.ChatRoom } chatbox
+ * @param { MUC } chatbox
  * @returns { 'me'|'them' }
  */
 function getSender (attrs, chatbox) {
@@ -141,12 +147,9 @@ function getSender (attrs, chatbox) {
 
 /**
  * Parses a passed in message stanza and returns an object of attributes.
- * @param { Element } stanza - The message stanza
- * @param { Element } original_stanza - The original stanza, that contains the
- *  message stanza, if it was contained, otherwise it's the message stanza itself.
- * @param { _converse.ChatRoom } chatbox
- * @param { _converse } _converse
- * @returns { Promise<MUCMessageAttributes|Error> }
+ * @param {Element} stanza - The message stanza
+ * @param {MUC} chatbox
+ * @returns {Promise<MUCMessageAttributes|Error>}
  */
 export async function parseMUCMessage (stanza, chatbox) {
     throwErrorIfInvalidForward(stanza);
@@ -344,7 +347,7 @@ export function parseMemberListIQ (iq) {
  * Parses a passed in MUC presence stanza and returns an object of attributes.
  * @method parseMUCPresence
  * @param { Element } stanza - The presence stanza
- * @param { _converse.ChatRoom } chatbox
+ * @param { MUC } chatbox
  * @returns { MUCPresenceAttributes }
  */
 export function parseMUCPresence (stanza, chatbox) {

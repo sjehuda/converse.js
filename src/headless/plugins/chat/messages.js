@@ -1,5 +1,5 @@
 import Message from './message.js';
-import { Collection } from '@converse/skeletor/src/collection';
+import { Collection } from '@converse/skeletor';
 
 class Messages extends Collection {
 
@@ -7,8 +7,12 @@ class Messages extends Collection {
         return 'time';
     }
 
-    constructor () {
-        super();
+    /**
+     * @param {Message[]} [models]
+     * @param {Object} [options]
+     */
+    constructor (models, options) {
+        super(models, options);
         this.model = Message;
         this.fetched = null;
         this.chatbox = null;
