@@ -17,6 +17,11 @@ $prefix: 'converse-';
 @import "bootstrap/scss/utilities";
 @import "bootstrap/scss/root";
 
+@import "themes/classic";
+@import "themes/concord";
+@import "themes/dracula";
+@import "themes/cyberpunk";
+
 .conversejs {
     @import "bootstrap/scss/reboot";
     @import "bootstrap/scss/type";
@@ -55,9 +60,6 @@ $prefix: 'converse-';
 @import "variables";
 @import "mixins";
 
-@import "themes/classic";
-@import "themes/concord";
-@import "themes/dracula";
 
 @import "core";
 @import "alerts";
