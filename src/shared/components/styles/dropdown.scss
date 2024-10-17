@@ -24,7 +24,7 @@
         }
 
         .dropdown-menu {
-            background: var(--background);
+            background: var(--background-color);
             margin-top: -0.2em !important;
             box-shadow: var(--raised-el-shadow);
         }
@@ -40,14 +40,14 @@
             }
             &:active, &.selected {
                 color: white !important;
-                background-color: var(--list-item-open-color);
+                background-color: var(--primary-color);
                 .fa {
                     color: white !important;
                 }
             }
             &:hover {
                 color: var(--text-color) !important;
-                background-color: var(--list-item-hover-color);
+                background-color: var(--secondary-color);
             }
         }
     }

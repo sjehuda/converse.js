@@ -10,8 +10,8 @@
             position: relative;
 
             &.chat-head-chatbox {
-                background-color: var(--chat-head-color);
-                border-bottom: var(--chat-head-border-bottom);
+                background-color: var(--background-color);
+                border-bottom: 0.15em solid var(--chat-color);
             }
 
             .avatar {
@@ -19,11 +19,11 @@
             }
 
             .show-msg-author-modal {
-                color: var(--chat-head-text-color) !important;
+                color: var(--chat-color) !important;
             }
 
             .chat-head__desc {
-                color: var(--chat-head-color);
+                color: var(--background-color);
                 font-size: var(--font-size-small);
                 margin: 0;
                 overflow: hidden;
@@ -52,7 +52,7 @@
             }
 
             .chatbox-title__text {
-                color: var(--chat-head-text-color);;
+                color: var(--chat-color);;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
@@ -84,7 +84,7 @@
             .chatbox-btn {
                 converse-icon {
                     svg {
-                        fill: var(--chat-head-fg-color);
+                        fill: var(--chat-color);
                     }
                 }
             }
