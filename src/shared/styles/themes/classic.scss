@@ -17,8 +17,8 @@
 
     // Base variables
     // --------------
-    --background-color: white;
-    --chat-color: var(--green);
+    --background-color: #efefef;
+    --chat-color: var(--dark-green);
     --chat-status-away: var(--orange);
     --chat-status-busy: var(--red);
     --chat-status-offline: gray;
@@ -27,15 +27,15 @@
     --danger-color: var(--dark-red); // dark-red
     --disabled-color: gray;
     --error-color: var(--dark-red);
-    --focus-color: #206485;
+    --focus-color: #aaa;
     --foreground-color: #666;
     --heading-color: var(--background-color);
     --headlines-color: var(--orange);
-    --info-color: var(--dark-green);
-    --link-color: var(--light-blue);
+    --info-color: var(--light-blue);
+    --link-color: var(--dark-blue);
     --muc-color: var(--redder-orange);
-    --primary-color: var(--light-blue) !important;
-    --secondary-color: #a8aba1 !important;
+    --primary-color: var(--blue) !important;
+    --secondary-color: var(--light-blue) !important;
     --selection-color: black;
     --success-color: var(--green);
     --warning-color: var(--orange);
@@ -49,7 +49,7 @@
     --link-color-hover: var(--link-color);
     --muc-color-hover: var(--muc-color);
     --primary-color-hover: var(--dark-blue);
-    --secondary-color-hover: #585b51;
+    --secondary-color-hover: #ddd;
     --success-color-hover: var(--success);
     --warning-color-hover: #d2842b;
 }

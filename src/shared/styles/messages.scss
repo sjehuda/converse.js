@@ -19,16 +19,10 @@
             margin-left: 0.5em;
             margin-bottom: 0.25em;
             padding-right: 1em;
-            color: var(--secondary-color);
-            border-left: 0.3em solid var(--secondary-color);
+            color: var(--info-color);
+            border-left: 0.3em solid var(--info-color);
             padding-left: 0.5em;
             display: inline-block;
-        }
-        &:hover {
-            blockquote {
-                color: var(--info-color);
-                border-left: 0.3em solid var(--info-color);
-            }
         }
 
         code {
@@ -121,7 +115,7 @@
                 -webkit-animation: colorchange-chatmessage 1s;
             }
             &:hover {
-                background-color: var(--secondary-color);
+                background-color: var(--secondary-color-hover);
             }
             &.correcting {
                 background-color: var(--secondary-color);
