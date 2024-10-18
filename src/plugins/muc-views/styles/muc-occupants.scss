@@ -27,15 +27,6 @@
 
         .box-flyout {
 
-            converse-muc-sidebar {
-                display: flex;
-                height: 100%;
-                flex-direction: row;
-                overflow: visible;
-                background-color: var(--background-color);
-                border-left: 0.15em solid var(--muc-color);
-            }
-
             .occupants {
                 display: flex;
                 height: 100%;
